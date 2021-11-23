@@ -115,15 +115,16 @@ def width_first(map, ax):
     Q.put(map.start)
     while not Q.empty():
         v=Q.get()
-        visit_plot(map, ax, v, "blue")
         if v==map.goal:
             print("Found the goal!")
+            visit_plot(map, ax, v, "blue")
             path_plot(map, ax)
             break
         adj_list=map.adj(v)
         for u in adj_list:
             if map.visited[u[0]][u[1]]==False:
                 map.visited[u[0]][u[1]]=True
+                visit_plot(map, ax, u, "blue")
                 map.prev[u[0]][u[1]]=v
                 Q.put(u)
 
@@ -132,8 +133,6 @@ def depth_first(map, ax):
     print("finding a path by depth first search...")
     S=[]
     S.append(map.start)
-    map.visited[map.start[0]][map.start[1]]=True
-    visit_plot(map, ax, map.start, "blue")
     while len(S)!=0:
         v=S.pop()
         if map.visited[v[0]][v[1]]==False:
@@ -143,11 +142,11 @@ def depth_first(map, ax):
                 print("goal!")
                 path_plot(map, ax)
                 break
-        adj_list=map.adj(v)
-        for u in adj_list:
-            if map.visited[u[0]][u[1]]==False:
-                S.append(u)
-                map.prev[u[0]][u[1]]=v
+            adj_list=map.adj(v)
+            for u in adj_list:
+                if map.visited[u[0]][u[1]]==False:
+                    S.append(u)
+                    map.prev[u[0]][u[1]]=v
 
 
 def main():
