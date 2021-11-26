@@ -115,19 +115,23 @@ def width_first(map, ax):
     Q.put(map.start)
     visit_plot(map, ax, map.start, "blue")
     map.visited[map.start[0]][map.start[1]]=True
+    goal_flag=False
     while not Q.empty():
-        v=Q.get()
-        if v==map.goal:
-            print("goal!")
-            visit_plot(map, ax, v, "blue")
-            path_plot(map, ax)
+        if goal_flag==True:
             break
+        v=Q.get()
         adj_list=map.adj(v)
         for u in adj_list:
             if map.visited[u[0]][u[1]]==False:
                 map.visited[u[0]][u[1]]=True
                 visit_plot(map, ax, u, "blue")
                 map.prev[u[0]][u[1]]=v
+                if u==map.goal:
+                    print("goal!")
+                    goal_flag=True
+                    path_plot(map, ax)
+                    break
+
                 Q.put(u)
 
 
