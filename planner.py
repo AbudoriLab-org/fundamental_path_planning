@@ -113,7 +113,7 @@ def width_first(map, ax):
     print("finding a path by width first search...")
     Q=queue.Queue()
     Q.put(map.start)
-    visit_plot(map, ax, u, "blue")
+    visit_plot(map, ax, map.start, "blue")
     map.visited[map.start[0]][map.start[1]]=True
     while not Q.empty():
         v=Q.get()
