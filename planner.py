@@ -113,10 +113,12 @@ def width_first(map, ax):
     print("finding a path by width first search...")
     Q=queue.Queue()
     Q.put(map.start)
+    visit_plot(map, ax, u, "blue")
+    map.visited[map.start[0]][map.start[1]]=True
     while not Q.empty():
         v=Q.get()
         if v==map.goal:
-            print("Found the goal!")
+            print("goal!")
             visit_plot(map, ax, v, "blue")
             path_plot(map, ax)
             break
@@ -140,6 +142,7 @@ def depth_first(map, ax):
             visit_plot(map, ax, v, "blue")
             if v==map.goal:
                 print("goal!")
+                visit_plot(map, ax, v, "blue")
                 path_plot(map, ax)
                 break
             adj_list=map.adj(v)
