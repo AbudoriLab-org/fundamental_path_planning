@@ -146,7 +146,6 @@ def depth_first(map, ax):
             visit_plot(map, ax, v, "blue")
             if v==map.goal:
                 print("goal!")
-                visit_plot(map, ax, v, "blue")
                 path_plot(map, ax)
                 break
             adj_list=map.adj(v)
