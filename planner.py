@@ -25,8 +25,8 @@ class Mapper():
 
     def __init__(self, start, goal):
         print("Initializing map...")
-        self.width=10
-        self.height=10
+        self.width=13
+        self.height=13
         self.obstacles=[[3,0,5],[6,4,9]]
         self.start=start
         self.goal=goal
@@ -53,8 +53,8 @@ class Mapper():
             x=v[0]
             y=v[1]
             result=[]
-            for i in range(max(0, x-1), min(10, x+2)):
-                for j in range(max(0, y-1), min(10, y+2)):
+            for i in range(max(0, x-1), min(self.height, x+2)):
+                for j in range(max(0, y-1), min(self.width, y+2)):
                     if self.grid[i][j]==0:
                         if (not (i==x and j==y)) and (abs(x+y-i-j)==1):
                             result.append([i, j])

@@ -17,13 +17,9 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-import heapq
 import matplotlib.pyplot as plt
-import argparse
-import queue
 import random
 random.seed(3)
-import heapq
 import numpy as np
 
 class Mapper():
@@ -46,7 +42,7 @@ class Mapper():
     def init_grid(self):
         for i in range(self.height):
             for j in range(self.width):
-                if (i==0 and j==0) or (i==9 and j==9):
+                if (i==self.start[0] and j==self.start[1]) or (i==self.goal[0] and j==self.goal[1]):
                     self.grid[i][j]=0
                 else:
                     self.grid[i][j]=random.randint(1, 9)
@@ -62,8 +58,8 @@ class Mapper():
             x=v[0]
             y=v[1]
             result=[]
-            for i in range(max(0, x-1), min(10, x+2)):
-                for j in range(max(0, y-1), min(10, y+2)):
+            for i in range(max(0, x-1), min(self.height, x+2)):
+                for j in range(max(0, y-1), min(self.width, y+2)):
                     if self.grid[i][j]!=100:
                         if (not (i==x and j==y)) and (abs(x+y-i-j)==1):
                             result.append([i, j])
@@ -81,6 +77,7 @@ def map_plot(map, ax):
 
     ax.set_xlim(0, map.width)
     ax.set_ylim(0, map.height)
+    
     ax.tick_params(axis='both', which='both', bottom='off', top='off',
                     labelbottom='off', right='off', left='off', labelleft='off')
 
@@ -89,7 +86,9 @@ def map_plot(map, ax):
     for i in range(map.height):
         for j in range(map.width):
                 if map.grid[i][j]!=100:
-                    ax.axvspan(i, i+1, j/map.height, (j+1)/map.height, color="green", alpha=map.grid[i][j]/10.0)
+                    ax.axvspan(i, i+1, float(j)/map.height, float(j+1)/map.height, color="green", alpha=map.grid[i][j]/10.0)
+                else:
+                    pass
 
 
 
